@@ -91,11 +91,7 @@ public:
 	//  refer the instructions PDF for more information.
 	Vertex<T> at(T label)
 	{
-		if (node_set.contains(label))
-		{
-			return node_set[label];
-		}
-		throw invalid_argument("label not found");
+		return node_set.at(label);
 	} // Part 1
 
 	// return the graph size (number of verticies)
