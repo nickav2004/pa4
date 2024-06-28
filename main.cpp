@@ -32,7 +32,6 @@ int main(int argc, const char *argv[])
     cout << "Display graph:\n";
     graph.displayGraph(cout);
   }
-  cout << " finsihed part 1" << endl;
 
   // Part 2 starts here
   graph.compute_indegree();          // Part 2

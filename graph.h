@@ -104,12 +104,51 @@ public:
 	// return true if successful, false on failure (cycle)
 	bool topological_sort()
 	{
-		return true;
+		queue<T> q; // Queue of vertex labels, not Vertex objects
+		int counter = 0;
+
+		for (auto &node : node_set)
+		{
+			if (node.second.indegree == 0)
+			{
+				q.push(node.first); // Push the label, not the whole vertex
+			}
+		}
+
+		while (!q.empty())
+		{
+			T v_label = q.front();
+			q.pop();
+			Vertex<T> &v = node_set[v_label]; // Get a reference to the actual vertex
+			v.top_num = ++counter;
+
+			for (auto w : v.adj_list)
+			{
+				if (--node_set[w].indegree == 0) // Check for 0, not 1
+				{
+					q.push(w); // Push the label, not the whole vertex
+				}
+			}
+		}
+
+		return counter == node_set.size();
 	}; // Part 2
 
 	// find indegree
-	void compute_indegree() {
-		// YOUR CODE IS HERE
+	void compute_indegree()
+	{
+		for (auto &node : node_set)
+		{
+			node.second.indegree = 0;
+		}
+
+		for (auto &node : node_set)
+		{
+			for (const auto &vertex_label : node.second.adj_list)
+			{
+				node_set[vertex_label].indegree++;
+			}
+		}
 	}; // Part 2
 
 	// print topological sort into ostream
