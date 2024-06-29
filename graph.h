@@ -104,14 +104,14 @@ public:
 	// return true if successful, false on failure (cycle)
 	bool topological_sort()
 	{
-		queue<T> q; // Queue of vertex labels, not Vertex objects
+		queue<T> q;
 		int counter = 0;
 
 		for (auto &node : node_set)
 		{
 			if (node.second.indegree == 0)
 			{
-				q.push(node.first); // Push the label, not the whole vertex
+				q.push(node.first);
 			}
 		}
 
@@ -119,18 +119,19 @@ public:
 		{
 			T v_label = q.front();
 			q.pop();
-			Vertex<T> &v = node_set[v_label]; // Get a reference to the actual vertex
+			Vertex<T> &v = node_set[v_label];
 			v.top_num = ++counter;
+			// cout << "vlabel: " << v_label << " " << " top_num: " << v.top_num << endl;
 
 			for (auto w : v.adj_list)
 			{
-				if (--node_set[w].indegree == 0) // Check for 0, not 1
+				if (--node_set[w].indegree == 0)
 				{
-					q.push(w); // Push the label, not the whole vertex
+					q.push(w);
 				}
 			}
 		}
-
+		top_sort_done = true;
 		return counter == node_set.size();
 	}; // Part 2
 
