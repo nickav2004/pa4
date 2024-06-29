@@ -104,6 +104,7 @@ public:
 	// return true if successful, false on failure (cycle)
 	bool topological_sort()
 	{
+		compute_indegree();
 		queue<T> q;
 		int counter = 0;
 
@@ -121,7 +122,7 @@ public:
 			q.pop();
 			Vertex<T> &v = node_set[v_label];
 			v.top_num = ++counter;
-			// cout << "vlabel: " << v_label << " " << " top_num: " << v.top_num << endl;
+			cout << "vlabel: " << v_label << " " << " top_num: " << v.top_num << endl;
 
 			for (auto w : v.adj_list)
 			{
@@ -131,7 +132,6 @@ public:
 				}
 			}
 		}
-		top_sort_done = true;
 		return counter == node_set.size();
 	}; // Part 2
 
